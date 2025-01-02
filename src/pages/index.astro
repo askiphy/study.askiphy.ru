@@ -1,0 +1,129 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { getCollection } from 'astro:content';
+import BlogCard from '../components/BlogCard.astro';
+
+const posts = (await getCollection('blog')).filter((post) => !post.data.isHidden);
+
+const courses = Object.fromEntries(
+	Map.groupBy(posts, (post) => post.data.course),
+);
+---
+
+<!doctype html>
+<html lang="ru">
+<head>
+	<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	<style>
+		main {
+			width: 960px;
+		}
+		ul {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 2rem;
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+		}
+		ul li {
+			width: calc(50% - 1rem);
+		}
+		ul li * {
+			text-decoration: none;
+			transition: 0.2s ease;
+		}
+		ul li:first-child {
+			width: 100%;
+			margin-bottom: 1rem;
+			text-align: center;
+		}
+		ul li:first-child img {
+			width: 100%;
+		}
+		ul li:first-child .title {
+			font-size: 2.369rem;
+		}
+		ul li img {
+			margin-bottom: 0.5rem;
+			border-radius: 12px;
+		}
+		ul li a {
+			display: block;
+		}
+		.title {
+			margin: 0;
+			color: rgb(var(--black));
+			line-height: 1;
+		}
+		.date {
+			margin: 0;
+			color: rgb(var(--gray));
+		}
+		ul li a:hover h4,
+		ul li a:hover .date {
+			color: rgb(var(--accent));
+		}
+		ul a:hover img {
+			box-shadow: var(--box-shadow);
+		}
+		@media (max-width: 720px) {
+			ul {
+				gap: 0.5em;
+			}
+			ul li {
+				width: 100%;
+				text-align: center;
+			}
+			ul li:first-child {
+				margin-bottom: 0;
+			}
+			ul li:first-child .title {
+				font-size: 1.563em;
+			}
+		}
+	</style>
+</head>
+<body>
+<main>
+	<div class="logo">
+		<h2>Серегапомоги!!!!</h2>
+		<p>Передаю привет <a class="go-back" href="https://tapni.su">Леше</a></p>
+		<hr />
+	</div>
+	<section>
+		{
+			Object.keys(courses).map((course) => (
+				<>
+					<h3 style="text-align: center">{course}</h3>
+					<ul class="grid">
+						{courses[course].map((post) => <BlogCard
+							title={post.data.title}
+							href={`/blog/${post.id}/`}
+							body={post.data.pubDate}
+							description={post.data.description}
+						/>)}
+					</ul>
+				</>
+			))
+		}
+	</section>
+</main>
+<Footer />
+</body>
+</html>
+
+<style>
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
+		gap: 4rem;
+		padding: 0;
+	}
+
+	.grid li {
+		list-style: none;
+	}
+</style>
