@@ -3,6 +3,7 @@ title: '📜 Создание MundoAddon'
 description: 'Информация, о создании MundoAddon'
 pubDate: 'January 02 2025'
 course: 'MundoMagis: Arcane'
+isHidden: true
 ---
 
 ## Создание аддона

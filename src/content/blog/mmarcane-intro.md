@@ -3,6 +3,7 @@ title: '☁️ Вступление'
 description: 'Информация, о подключении мода к проекту'
 pubDate: 'January 02 2025'
 course: 'MundoMagis: Arcane'
+isHidden: true
 ---
 
 # Начало
