@@ -5,7 +5,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
 import { getCollection } from 'astro:content';
 import BlogCard from "../../components/BlogCard.astro";
 
-const posts = (await getCollection('blog')).filter((post) => !post.data.isHidden);
+const posts = (await getCollection('blog'));
 
 const courses = Object.fromEntries(
 	Map.groupBy(posts, (post) => post.data.course),
