@@ -1,13 +1,14 @@
 ---
 import BaseHead from '../../components/BaseHead.astro';
-import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
 import { getCollection } from 'astro:content';
-import FormattedDate from '../../components/FormattedDate.astro';
+import BlogCard from "../../components/BlogCard.astro";
 
-const posts = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+const posts = (await getCollection('blog')).filter((post) => !post.data.isHidden);
+
+const courses = Object.fromEntries(
+	Map.groupBy(posts, (post) => post.data.course),
 );
 ---
 
@@ -86,25 +87,111 @@ const posts = (await getCollection('blog')).sort(
 		</style>
 	</head>
 	<body>
-		<Header />
 		<main>
 			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
-								</a>
-							</li>
-						))
-					}
-				</ul>
+				{
+					Object.keys(courses).map((course) => (
+						<>
+							<h2 style="text-align: center">{course}</h2>
+							<ul class="grid">
+								{courses[course].map((post) => <BlogCard
+									title={post.data.title}
+									href={`/blog/${post.id}/`}
+									body={post.data.pubDate}
+									description={post.data.description}
+								/>)}
+							</ul>
+						</>
+					))
+				}
 			</section>
 		</main>
 		<Footer />
 	</body>
 </html>
+
+<style>
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(10ch, 1fr));
+		gap: 4rem;
+		padding: 0;
+	}
+
+	.grid li {
+		list-style: none;
+	}
+
+	.details-content {
+		background: #1c1c1c;
+	}
+
+	.details {
+		margin: 0 auto 10px;
+		background: #1c1c1c;
+		border-radius: 5px;
+		transition: 0.3s;
+		overflow: hidden;
+		border: 1mm solid rgb(46, 154, 255);
+		position: relative;
+		display: block;
+	}
+
+	.details::after {
+		position: absolute;
+		right: 24px;
+		top: 15px;
+		content: "";
+		display: block;
+		width: 14px;
+		height: 14px;
+		border-right: 3px solid rgb(46, 154, 255);
+		border-bottom: 3px solid rgb(46, 154, 255);
+		transform: rotate(-45deg);
+		transform-origin: center;
+		transition: .3s;
+	}
+
+	.details[open]::after {
+		transform: rotate(45deg);
+	}
+
+	.details[open] {
+		padding-bottom: 100px;
+	}
+
+	.details[open] .details__title {
+		margin-bottom: 32px;
+	}
+
+	.details__title {
+		border-radius: 5px;
+		padding: 12px 24px;
+		font-size: 20px;
+		cursor: pointer;
+		list-style: none;
+		font-weight: 700;
+		transition: .3s;
+	}
+
+	.details__title::-webkit-details-marker {
+		display: none;
+	}
+
+	.details-content {
+		padding: 0 32px;
+		font-size: 18px;
+		margin-bottom: -60px;
+	}
+
+	.details-content p:last-child {
+		margin-bottom: 0;
+	}
+	.details-content p:first-child {
+		margin-top: 0;
+	}
+
+	.details__title::-webkit-details-marker {
+		display: none;
+	}
+</style>
