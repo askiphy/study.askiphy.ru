@@ -33,16 +33,16 @@ const { title, description, image = '' } = Astro.props;
 <meta name="description" content={description} />
 
 <!-- Open Graph / Facebook -->
-<meta property="og:type" content="website" />
-<meta property="og:url" content={Astro.url} />
-<meta property="og:title" content={title} />
-<meta property="og:description" content={description} />
+<meta name="og:type" content="website" />
+<meta name="og:url" content={Astro.url} />
+<meta name="og:title" content={title} />
+<meta name="og:description" content={description} />
 <meta name="og:image" content="https://study.askiphy.ru/bg.jpg" />
 <meta itemprop="image" content="https://study.askiphy.ru/bg.jpg">
 
 <!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={Astro.url} />
-<meta property="twitter:title" content={title} />
-<meta property="twitter:description" content={description} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content={Astro.url} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
 <meta name="twitter:image" content="https://study.askiphy.ru/bg.jpg" />
