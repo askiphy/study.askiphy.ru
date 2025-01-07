@@ -15,7 +15,7 @@ const courses = Object.fromEntries(
 <!doctype html>
 <html lang="ru">
 <head>
-	<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} image="./bg.jpg" />
 	<style>
 		main {
 			width: 960px;
@@ -200,5 +200,12 @@ const courses = Object.fromEntries(
 
 	.details__title::-webkit-details-marker {
 		display: none;
+	}
+
+	.logo img {
+		padding: 10px;
+		border-radius: 5px;
+		max-width: 20em;
+		border: 1mm solid rgb(46, 154, 255);
 	}
 </style>

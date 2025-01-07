@@ -182,12 +182,12 @@ li {
 
 .go-back {
 	color: white;
-	text-decoration: none;
+	text-decoration: underline;
 	text-align: center;
 }
 
 .go-back:hover {
-	color: white;
+	color: rgb(25, 118, 205);
 	text-decoration: underline;
 }
 
