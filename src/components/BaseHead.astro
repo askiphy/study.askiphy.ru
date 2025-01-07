@@ -38,6 +38,7 @@ const { title, description, image = '' } = Astro.props;
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={new URL(image, Astro.url)} />
+<meta itemprop="image" content="https://study.askiphy.ru/bg.jpg">
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
