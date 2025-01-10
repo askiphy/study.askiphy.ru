@@ -1,0 +1,33 @@
+---
+import {getCollection} from "astro:content";
+import BlogCard from "./BlogCard.astro";
+
+interface Props {
+    showHidden: boolean;
+}
+
+const { showHidden } = Astro.props;
+
+let posts = (await getCollection('blog'));
+
+if (!showHidden) {
+    posts = posts.filter((post) => !post.data.isHidden);
+}
+
+const courses = Object.fromEntries(
+    Map.groupBy(posts, (post) => post.data.course),
+);
+---
+
+<section>
+    {
+        Object.keys(courses).map((course) => (
+                <>
+                    <h1 class="text-blue-50 text-4xl text-center m-8 underline">{course}</h1>
+                    <ul class="myGrid text-block">
+                        {courses[course].map((post) => <BlogCard name={post.data.title} pubDate={post.data.pubDate}  description="" href=`/blog/${post.id}`/>)}
+                    </ul>
+                </>
+        ))
+    }
+</section>
