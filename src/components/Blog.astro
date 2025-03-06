@@ -1,6 +1,7 @@
 ---
 import {getCollection} from "astro:content";
 import BlogCard from "./BlogCard.astro";
+import AltCard from "./AltCard.astro";
 
 interface Props {
     showHidden: boolean;
@@ -23,10 +24,12 @@ const courses = Object.fromEntries(
     {
         Object.keys(courses).map((course) => (
                 <>
-                    <h1 class="text-blue-50 text-4xl text-center m-8 underline">{course}</h1>
-                    <ul class="myGrid text-block">
-                        {courses[course].map((post) => <BlogCard name={post.data.title} pubDate={post.data.pubDate}  description="" href=`/blog/${post.id}`/>)}
-                    </ul>
+                    <div class="text-block">
+                        <h1 class="text-blue-50 text-2xl text-center m-8 underline">{course}</h1>
+                        <ul class="">
+                            {courses[course].map((post) => <AltCard name={post.data.title} pubDate={post.data.pubDate}  description="" href=`/blog/${post.id}`/>)}
+                        </ul>
+                    </div>
                 </>
         ))
     }

@@ -1,0 +1,81 @@
+---
+import FormattedDate from "./FormattedDate.astro";
+interface Props {
+    name: string;
+    pubDate: Date;
+    href: string;
+    description: string;
+}
+
+const { name, pubDate, href, description } = Astro.props;
+---
+<a href={href}>
+    <div class="card">
+        <div class="card__content">
+            <div>
+                {name}
+                <p>
+                    {description}
+                </p>
+                <p>
+                    <FormattedDate date={pubDate} />
+                </p>
+            </div>
+        </div>
+    </div>
+</a>
+
+<style>
+    .card {
+        margin: 1em;
+        padding: 1em;
+        border-radius: 35px;
+        background-color: #302f2f;
+        color: white;
+        text-align: center;
+        overflow: hidden;
+        list-style: none;
+        display: flex;
+        flex-flow: column;
+        border: solid 2px #ec7666;
+        cursor: pointer;
+    }
+
+    .card h1,
+    .card h2 {
+        text-decoration: none;
+    }
+
+    .cardA {
+        max-width: 100%;
+        text-decoration: underline;
+        color: white;
+    }
+
+    .cardA:hover {
+        color: #ec7666;
+        text-decoration: underline;
+    }
+
+    p {
+        margin-top: 0.5rem;
+        margin-bottom: 0;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    h2 {
+        margin: 0;
+        font-size: 1.25rem;
+        transition: color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        text-align: center;
+    }
+
+    .card__content {
+        flex: 1 1 auto;
+        display: block;
+        justify-content: space-between;
+    }
+</style>
